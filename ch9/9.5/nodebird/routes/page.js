@@ -16,6 +16,14 @@ router.get('/join', isNotLoggedIn, (req, res) => {
   });
 });
 
+router.get('/delete/:id',  (req, res, next) =>{
+  res.render('delete', {
+    title: 'hello',
+  });
+    console.log("HelloWorld");
+    next();
+});
+
 router.get('/', (req, res, next) => {
   Post.findAll({
     include: {
