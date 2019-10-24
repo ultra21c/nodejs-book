@@ -27,6 +27,7 @@ block content
           if user && user.id !== twit.user.id && !follow
             button.twit-follow 팔로우하기
           .twit-content= twit.content
+          button.twit-delete.btn 삭제하기
           if twit.img
             .twit-img
               img(src=twit.img alt='섬네일')
@@ -51,6 +52,25 @@ block content
         xhr.send(formData);
       });
     }
+    document.querySelectorAll('.twit-delete').forEach(function (tag) {
+        console.log(tag);
+        tag.addEventListener('click', function () {
+          if (confirm('삭제하시겠습니까?')) {
+            var xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+              if (xhr.status === 200) {
+                location.reload();
+              }else {
+                console.error(xhr.responseText);
+              }
+            };
+            // xhr.open('POST', '/');
+            // xhr.send();
+          }
+
+        });
+
+    });
     document.querySelectorAll('.twit-follow').forEach(function (tag) {
       tag.addEventListener('click', function () {
         var isLoggedIn = document.querySelector('#my-id');
@@ -74,3 +94,4 @@ block content
         }
       });
     });
+
