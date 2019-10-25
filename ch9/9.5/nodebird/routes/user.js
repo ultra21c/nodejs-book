@@ -16,4 +16,18 @@ router.post('/:id/follow', isLoggedIn, async (req, res, next) => {
   }
 });
 
+router.post('/break/:id', isLoggedIn, async (req, res, next) =>{
+  try {
+    var fid = req.params.id;
+    var userid = req.user.id;
+    const user = await User.findOne({ where: { id: userid } });
+    await user.removeFollowing(parseInt(fid,10));
+    res.send('break success!!');
+    next
+  } catch(error) {
+    console.error(error);
+    next(error);
+}
+});
+
 module.exports = router;

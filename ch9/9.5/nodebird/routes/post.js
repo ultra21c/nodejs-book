@@ -77,4 +77,16 @@ router.get('/hashtag', async (req, res, next) => {
   }
 });
 
+router.post('/delete/:id', isLoggedIn, async (req, res, next) => {
+  try{
+    var userid = req.user.id
+      await Post.destroy({where: {id: req.params.id, userId: userid}});
+      res.redirect('/');
+  } catch(error) {
+    console.error(error);
+    next(next);
+  }
+
+});
+
 module.exports = router;

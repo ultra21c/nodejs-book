@@ -7,8 +7,33 @@ block content
       if user.Followings
         for following in user.Followings
           div= following.nick
+            button.twit-following-delete.btn 삭제하기
+            input.following-id(type='hidden' value=following.id)
+            input.following-nick(type='hidden' value=following.nick)
     .followers.half
       h2 팔로워 목록
       if user.Followers
         for follower in user.Followers
           div= follower.nick
+  script.
+    document.querySelectorAll('.twit-following-delete').forEach(function (tag) {
+       tag.addEventListener('click', function () {
+           var fid = tag.parentNode.querySelector('.following-id').value;
+           var nick = tag.parentNode.querySelector('.following-nick').value;
+           if (fid) {
+               if(confirm(nick + ' 와의 관계를 끊으시겠습니까?')) {
+                   var xhr = new XMLHttpRequest();
+                   xhr.onload = function () {
+                       if (xhr.status === 200) {
+                           location.reload();
+                       }else {
+                           console.error(xhr.responseText);
+                       }
+                   };
+                   xhr.open('POST', '/user/break/' + fid);
+                   xhr.send();
+               }
+
+           }
+       });
+    });

@@ -11,7 +11,6 @@ const pageRouter = require('./routes/page');
 const authRouter = require('./routes/auth');
 const postRouter = require('./routes/post');
 const userRouter = require('./routes/user');
-const deleteRouter = require('/routes/delete')
 const { sequelize } = require('./models');
 const passportConfig = require('./passport');
 
@@ -46,7 +45,7 @@ app.use('/', pageRouter);
 app.use('/auth', authRouter);
 app.use('/post', postRouter);
 app.use('/user', userRouter);
-app.use('/delete/' deleteRouter);
+// app.use('/delete/' deleteRouter);
 
 app.use((req, res, next) => {
   const err = new Error('Not Found');
